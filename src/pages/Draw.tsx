@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Snowflakes } from "@/components/Snowflakes";
 import { SecretSantaCard } from "@/components/SecretSantaCard";
 import { Confetti } from "@/components/Confetti";
+import { InteractiveSanta } from "@/components/InteractiveSanta";
+import { HoppingReindeer } from "@/components/HoppingReindeer";
 import { Gift, Sparkles, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -47,6 +49,8 @@ export const Draw = () => {
       <div className="min-h-screen bg-gradient-to-b from-winter-white to-snow-white relative overflow-hidden">
         <Snowflakes />
         {showConfetti && <Confetti />}
+        <InteractiveSanta />
+        <HoppingReindeer />
         
         <div className="relative z-10 container mx-auto px-4 py-20 flex flex-col items-center justify-center min-h-screen">
           <Button
