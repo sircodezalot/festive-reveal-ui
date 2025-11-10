@@ -1,40 +1,32 @@
 import { useEffect, useState } from "react";
 
-interface Position {
-  x: number;
-  y: number;
-}
-
 export const HoppingReindeer = () => {
-  const [position, setPosition] = useState<Position>({ x: 80, y: 70 });
-  const [isHopping, setIsHopping] = useState(false);
+  const [position, setPosition] = useState(0);
+  const [direction, setDirection] = useState(1);
 
   useEffect(() => {
-    const hopInterval = setInterval(() => {
-      setIsHopping(true);
-      
-      setTimeout(() => {
-        setPosition({
-          x: Math.random() * 85 + 5,
-          y: Math.random() * 70 + 15,
-        });
-        setIsHopping(false);
-      }, 600);
-    }, 3000);
+    const moveInterval = setInterval(() => {
+      setPosition((prev) => {
+        const newPos = prev + (direction * 0.5);
+        if (newPos >= 85 || newPos <= 0) {
+          setDirection((d) => -d);
+        }
+        return newPos;
+      });
+    }, 30);
 
-    return () => clearInterval(hopInterval);
-  }, []);
+    return () => clearInterval(moveInterval);
+  }, [direction]);
 
   return (
     <div
-      className="fixed z-40 transition-all duration-1000 ease-out pointer-events-none"
-      style={{ left: `${position.x}%`, top: `${position.y}%` }}
+      className="fixed bottom-20 z-40 pointer-events-none transition-all duration-75 ease-linear"
+      style={{ 
+        left: `${position}%`,
+        transform: direction === -1 ? 'scaleX(-1)' : 'scaleX(1)'
+      }}
     >
-      <div
-        className={`text-7xl select-none ${
-          isHopping ? "animate-[hop_0.6s_ease-in-out]" : ""
-        }`}
-      >
+      <div className="text-7xl select-none animate-[reindeer-hop_0.8s_ease-in-out_infinite]">
         🦌
       </div>
     </div>

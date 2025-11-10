@@ -128,6 +128,14 @@ export default {
           "0%, 100%": { transform: "translateY(0) scale(1)" },
           "50%": { transform: "translateY(-60px) scale(1.1)" },
         },
+        "reindeer-hop": {
+          "0%, 100%": { transform: "translateY(0) rotate(-2deg)" },
+          "50%": { transform: "translateY(-30px) rotate(2deg)" },
+        },
+        "santa-sway": {
+          "0%, 100%": { transform: "translateY(0) rotate(-3deg)" },
+          "50%": { transform: "translateY(-10px) rotate(3deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -143,6 +151,8 @@ export default {
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         "wave": "wave 0.5s ease-in-out",
         "hop": "hop 0.6s ease-in-out",
+        "reindeer-hop": "reindeer-hop 0.8s ease-in-out infinite",
+        "santa-sway": "santa-sway 2s ease-in-out infinite",
       },
     },
   },

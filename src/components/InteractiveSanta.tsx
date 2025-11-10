@@ -1,27 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const InteractiveSanta = () => {
   const [isWaving, setIsWaving] = useState(false);
-  const [position, setPosition] = useState({ x: 10, y: 20 });
+  const [position, setPosition] = useState({ x: 15, y: 20 });
+  const [targetPosition, setTargetPosition] = useState({ x: 15, y: 20 });
 
   const handleClick = () => {
     setIsWaving(true);
     setTimeout(() => setIsWaving(false), 1000);
     
-    // Move Santa to a new random position
-    setPosition({
-      x: Math.random() * 80 + 10,
-      y: Math.random() * 60 + 10,
+    setTargetPosition({
+      x: Math.random() * 70 + 10,
+      y: Math.random() * 50 + 15,
     });
   };
 
+  useEffect(() => {
+    const moveInterval = setInterval(() => {
+      setPosition((prev) => {
+        const dx = targetPosition.x - prev.x;
+        const dy = targetPosition.y - prev.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < 0.5) return prev;
+        
+        return {
+          x: prev.x + (dx / distance) * 0.3,
+          y: prev.y + (dy / distance) * 0.3,
+        };
+      });
+    }, 30);
+
+    return () => clearInterval(moveInterval);
+  }, [targetPosition]);
+
   return (
     <div
-      className="fixed z-40 cursor-pointer transition-all duration-1000 ease-in-out hover:scale-110"
+      className="fixed z-40 cursor-pointer transition-transform duration-200 hover:scale-110"
       style={{ left: `${position.x}%`, top: `${position.y}%` }}
       onClick={handleClick}
     >
-      <div className="relative animate-float">
+      <div className="relative animate-[santa-sway_2s_ease-in-out_infinite]">
         <div className="text-8xl select-none">
           🎅
         </div>
